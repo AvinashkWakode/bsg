@@ -94,7 +94,7 @@ const FeedbackForm = () => {
     }
 
     try {
-      const response = await (`${process.env.REACT_APP_API_URL}/api/feedback`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/feedback`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
