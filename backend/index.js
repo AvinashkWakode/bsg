@@ -7,7 +7,11 @@ dotenv.config();
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: 'https://bsgindiaa.netlify.app', // your live frontend URL
+  methods: ['GET', 'POST']
+}));
+
 
 // ✅ MongoDB Connection
 mongoose.connect(process.env.MONGO_URI)
