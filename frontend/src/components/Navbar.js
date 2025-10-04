@@ -41,7 +41,18 @@ const Navbar = () => {
         Home
       </NavLink>
 
- 
+      {/* Dashboard */}
+      <NavLink
+        to="/report"
+        style={({ isActive }) => ({
+          marginRight: "2rem",
+          color: isActive ? "rgb(255, 215, 0)" : "white",
+          textDecoration: "none",
+          fontWeight: isActive ? "bold" : "normal",
+        })}
+      >
+        Dashboard
+      </NavLink>
 
       {/* Feedback Dropdown */}
       <div
