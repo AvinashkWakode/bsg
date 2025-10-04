@@ -4,8 +4,6 @@ import { NavLink } from "react-router-dom";
 const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
-
   const dropdownItems = [
     "Adventure Programme Camp",
     "Testing / Award Camps",
@@ -29,6 +27,7 @@ const Navbar = () => {
         alignItems: "center",
       }}
     >
+      {/* Home */}
       <NavLink
         to="/"
         end
@@ -39,11 +38,28 @@ const Navbar = () => {
           fontWeight: isActive ? "bold" : "normal",
         })}
       >
-        Events
+        Home
+      </NavLink>
+
+      {/* Dashboard */}
+      <NavLink
+        to="/report"
+        style={({ isActive }) => ({
+          marginRight: "2rem",
+          color: isActive ? "rgb(255, 215, 0)" : "white",
+          textDecoration: "none",
+          fontWeight: isActive ? "bold" : "normal",
+        })}
+      >
+        Dashboard
       </NavLink>
 
       {/* Feedback Dropdown */}
-      <div style={{ position: "relative", display: "inline-block" }}>
+      <div
+        style={{ position: "relative", display: "inline-block" }}
+        onMouseEnter={() => setDropdownOpen(true)}
+        onMouseLeave={() => setDropdownOpen(false)}
+      >
         <NavLink
           to="#"
           style={{
@@ -51,57 +67,49 @@ const Navbar = () => {
             textDecoration: "none",
             fontWeight: "bold",
             cursor: "pointer",
+            transition: "color 0.3s",
           }}
-          onClick={toggleDropdown}
         >
           Feedback ▼
         </NavLink>
 
-        {dropdownOpen && (
-          <ul
-            style={{
-              position: "absolute",
-              top: "100%",
-              left: 0,
-              backgroundColor: "#1E40AF",
-              listStyle: "none",
-              padding: "0.5rem 0",
-              margin: 0,
-              borderRadius: "5px",
-              minWidth: "250px",
-              boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
-              zIndex: 1000,
-            }}
-          >
-            {dropdownItems.map((item, index) => (
-              <li key={index}>
-                <NavLink
-                  to={`/FeedbackForm/${item.replace(/\s+/g, "-")}`}
-                  style={({ isActive }) => ({
-                    display: "block",
-                    padding: "0.5rem 1rem",
-                    color: isActive ? "rgb(255, 215, 0)" : "white",
-                    textDecoration: "none",
-                    backgroundColor: isActive ? "#1A3CC8" : "transparent",
-                    borderRadius: "3px",
-                    transition: "0.2s",
-                  })}
-                  onClick={() => setDropdownOpen(false)}
-                  onMouseEnter={(e) =>
-                    (e.target.style.backgroundColor = "rgb(255, 215, 0, 0.2)")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.target.style.backgroundColor = e.isActive
-                      ? "#1A3CC8"
-                      : "transparent")
-                  }
-                >
-                  {item}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
-        )}
+        <ul
+          style={{
+            position: "absolute",
+            top: "100%",
+            left: 0,
+            backgroundColor: "#1E40AF",
+            listStyle: "none",
+            padding: "0.5rem 0",
+            margin: 0,
+            borderRadius: "5px",
+            minWidth: "250px",
+            boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
+            zIndex: 1000,
+            maxHeight: dropdownOpen ? "500px" : "0", // smooth slide effect
+            overflow: "hidden",
+            transition: "max-height 0.3s ease-in-out",
+          }}
+        >
+          {dropdownItems.map((item, index) => (
+            <li key={index}>
+              <NavLink
+                to={`/FeedbackForm/${item.replace(/\s+/g, "-")}`}
+                style={({ isActive }) => ({
+                  display: "block",
+                  padding: "0.5rem 1rem",
+                  color: isActive ? "rgb(255, 215, 0)" : "white",
+                  textDecoration: "none",
+                  backgroundColor: isActive ? "#1A3CC8" : "transparent",
+                  borderRadius: "3px",
+                  transition: "0.2s",
+                })}
+              >
+                {item}
+              </NavLink>
+            </li>
+          ))}
+        </ul>
       </div>
     </nav>
   );
