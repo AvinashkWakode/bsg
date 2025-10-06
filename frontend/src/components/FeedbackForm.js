@@ -15,6 +15,7 @@ const FeedbackForm = () => {
   });
 
   const [showThankYou, setShowThankYou] = useState(false); // popup state
+  const [isSubmitting, setIsSubmitting] = useState(false); // spinner state
 
   const questions = [
     "Safety measures during activities",
@@ -76,7 +77,6 @@ const FeedbackForm = () => {
     return detailsFilled && allRatingsFilled && commentsFilled;
   };
 
-  // ✅ Updated handleSubmit with API call
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -92,6 +92,8 @@ const FeedbackForm = () => {
       alert("Mobile Number must be exactly 10 digits!");
       return;
     }
+
+    setIsSubmitting(true); // show spinner
 
     try {
       const response = await fetch("http://localhost:5000/api/feedback", {
@@ -123,6 +125,8 @@ const FeedbackForm = () => {
     } catch (error) {
       console.error("❌ Error:", error);
       alert("Server not reachable. Please try again later.");
+    } finally {
+      setIsSubmitting(false); // hide spinner
     }
   };
 
@@ -302,17 +306,20 @@ const FeedbackForm = () => {
             </p>
           </div>
 
-          {/* Submit Button */}
+          {/* Submit Button with spinner */}
           <button
             type="submit"
             style={{
               ...submitBtnStyle,
               backgroundColor: isFormComplete() ? "#1E40AF" : "#ccc",
-              cursor: isFormComplete() ? "pointer" : "not-allowed",
+              cursor: isFormComplete() && !isSubmitting ? "pointer" : "not-allowed",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
-            disabled={!isFormComplete()}
+            disabled={!isFormComplete() || isSubmitting}
           >
-            Submit
+            {isSubmitting ? <div style={spinnerStyle}></div> : "Submit"}
           </button>
         </form>
       </div>
@@ -377,6 +384,11 @@ const FeedbackForm = () => {
           margin-bottom: 0.3rem;
           font-size: 0.95rem;
         }
+
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
       `}</style>
     </div>
   );
@@ -411,6 +423,15 @@ const submitBtnStyle = {
   display: "block",
   margin: "0 auto",
   transition: "all 0.3s ease",
+};
+
+const spinnerStyle = {
+  border: "3px solid #f3f3f3",
+  borderTop: "3px solid #fff",
+  borderRadius: "50%",
+  width: "18px",
+  height: "18px",
+  animation: "spin 1s linear infinite",
 };
 
 const thankYouStyle = {
