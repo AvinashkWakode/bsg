@@ -1,0 +1,8 @@
+# Allow all search engines to crawl the site
+User-agent: *
+
+# Link to your sitemap
+Sitemap: https://bsgindiaa.netlify.app/sitemap.xml
+
+# No pages are disallowed (everything is crawlable)
+Disallow:
