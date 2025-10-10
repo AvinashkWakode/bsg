@@ -5,4 +5,7 @@ User-agent: *
 Sitemap: https://bsgindiaa.netlify.app/sitemap.xml
 
 # No pages are disallowed (everything is crawlable)
-Disallow:
+Allow: /
+
+
+
