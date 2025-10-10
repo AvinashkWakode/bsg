@@ -196,7 +196,7 @@ const Navbar = () => {
                             position: isDesktop ? "absolute" : "static",
                             top: isDesktop ? "100%" : "auto",
                             right: isDesktop ? 0 : "auto",
-                            marginTop: isDesktop ? "17.5px" : "0",
+                            marginTop: isDesktop ? "11px" : "0",
                             backgroundColor: "#1E40AF",
                             listStyle: "none",
                             padding: "0.5rem 0",
