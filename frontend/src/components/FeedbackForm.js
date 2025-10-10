@@ -142,7 +142,7 @@ const FeedbackForm = () => {
         />
         <meta
           name="keywords"
-          content="BSG feedback, adventure camp feedback, customer feedback, camp rating, BSG survey, BSG"
+          content="BSG feedback, adventure camp feedback, scout guide feedback, camp rating, BSG survey, BSG"
         />
         <meta name="robots" content="index, follow" />
 
